@@ -46,7 +46,7 @@ router.put('/api/:username/project', cors(), (req, res) => {
             return res.status(404).json({ status: 404, message });
         }
 
-        connection.run(`UPDATE users SET project = ? WHERE username = ? AND token = ?`, [req.body.data, cleanUsername, req.body.token], (error, users) => {
+        connection.run(`UPDATE users SET project = ?, lastupdate=datetime('now') WHERE username = ? AND token = ?`, [req.body.data, cleanUsername, req.body.token], (error, users) => {
             return res.status(200).json( {status: 200, message: 'ok'} );
         }); 
     });
@@ -63,7 +63,7 @@ router.put('/api/:username/plan', cors(), (req, res) => {
             return res.status(404).json({ status: 404, message });
         }
 
-        connection.run(`UPDATE users SET plan = ? WHERE username = ? AND token = ?`, [req.body.data, cleanUsername, req.body.token], (error, users) => {
+        connection.run(`UPDATE users SET plan = ?, lastupdate=datetime('now') WHERE username = ? AND token = ?`, [req.body.data, cleanUsername, req.body.token], (error, users) => {
             return res.status(200).json( {status: 200, message: 'ok'} );
         }); 
     });

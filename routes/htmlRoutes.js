@@ -102,7 +102,7 @@ router.put('/profile/username', checkAuthentication,  (req, res) => {
             return res.status(400).send({error: true,  message });
         }
 
-        connection.run(`UPDATE users SET username = ? WHERE id = ?`, [cleanUsername, req.user.id], function (err) {
+        connection.run(`UPDATE users SET username = ?, lastupdate=datetime('now') WHERE id = ?`, [cleanUsername, req.user.id], function (err) {
             if (err) {
                 console.log('err', err);
                 return res.status(400).send({error: true,  err });
@@ -148,7 +148,8 @@ router.put('/profile', checkAuthentication,  (req, res) => {
             UPDATE users 
             SET displayname = ?,
             plan = ?,
-            project = ?
+            project = ?,
+            lastupdate=datetime('now')
             WHERE id = ?
         `, [displayname, plan, project, req.user.id], function (err) {
         if (err) {
