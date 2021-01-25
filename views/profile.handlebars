@@ -63,6 +63,12 @@
                     <br/><br/>
                     <h5>Example usage</h5>
                     <p class="card-text">
+                        Get user:<br/>
+                        <code>
+                            curl {{config.baseUrl}}/api/{{username}} 
+                        </code>
+                    </p>
+                    <p class="card-text">
                         Update project:<br/>
                         <code>
                             curl {{config.baseUrl}}/api/{{username}}/project -X PUT -H "Content-Type: application/json" -d '{"token":"{{token}}","data":"My new project"}'
