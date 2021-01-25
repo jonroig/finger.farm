@@ -29,3 +29,5 @@ Although it's fallen out of fashion, finger still works and still has a valid pu
 `node index.js`
 
 ... or, even better: `pm2 start index.js` (if you're into that kinda thing)
+
+You will almost certainly want to run this behind HAProxy.
