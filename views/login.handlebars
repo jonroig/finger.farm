@@ -1,0 +1,55 @@
+
+  <!-- Page Content -->
+  <div class="container h-100">
+        <div class="container">
+            <br/>
+            <div class="col-lg-12" style="padding-bottom: 20px;">
+                <div class="card">
+                <h4 class="card-header">Finger.Farm: Login</h4>
+                <div class="card-body">
+                    <form>
+                        <div>
+                            <label>Username:</label>
+                            <input type="text" name="username" /><br />
+                        </div>
+                        <div>
+                            <label>Password:</label>
+                            <input type="password" name="password" />
+                        </div>
+                        <div>
+                            <input type="submit" value="Submit" />
+                        </div>
+                    </form>
+
+                    <p>
+                        <a href="/signup">Looking for signup?</a>
+                    </p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('form').on('submit', (event) => {
+            event.preventDefault();
+            const username = $('input[name="username"]').val().trim();
+            const password = $('input[name="password"]').val().trim();
+
+            $.ajax({
+                url: '/login',
+                method: 'POST',
+                data: {
+                    username,
+                    password
+                }
+            })
+            .done(() => {
+                window.location.href = '/profile';
+            })
+            .fail(error => {
+                alert(error.responseJSON.message);
+            });
+        });
+    </script>
+

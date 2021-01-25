@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Finger.Farm - {{#unless pageTitle}}Advanced Finger Hosting{{else}}{{pageTitle}}{{/unless}}</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/modern-business.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+</head>
+
+<body class="h-100">
+      <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">Finger.Farm</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/status" title="Status">Status</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/jonroig/fingerfarm" title="Finger.Farm GitHub repo">GitHub Repo</a>
+          </li>
+          {{#if isLoggedIn}}
+            <li class="nav-item">
+                <a class="nav-link" href="/logout" title="Logout">Logout</a>
+            </li>
+           {{else}}
+            <li class="nav-item">
+                <a class="nav-link" href="/auth/github" title="Login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/auth/github" title="Signup">Signup</a>
+            </li>
+            {{/if}}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {{{body}}}
+
+  <!-- Footer -->
+  <footer class="py-2 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; 2021 <a href="https://jonroig.com" title="Jon Roig dot com">Jon Roig</a> 
+      <br/> 
+      Sponsor: <a href="https://xn--i-7iq.ws/" title="i❤️.ws emoji domains">i❤️.ws emoji domains</a></p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+
+
+</body>
+
+</html>

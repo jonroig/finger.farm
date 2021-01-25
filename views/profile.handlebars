@@ -1,0 +1,162 @@
+<!-- Page Content -->
+<div class="container">
+    <br/>
+    {{#unless hasUsername}}
+        <div class="col-lg-12" style="padding-bottom: 20px;">
+            <div class="card">
+                <h4 class="card-header">New User: Choose a Username (Step 1 of 1)</h4>
+                <div class="card-body">
+                    <form onsubmit="updateUsername(); return false">
+                        Username: <input type="text" id="newUsername" value=""/>
+                    </form>
+                    <p class="card-text">
+                        <ul>
+                            <li>Cannot be blank</li>
+                            <li>Only alphanumeric characters / underscores</li>
+                            <li>Max 256 characters</li>
+                        </ul>
+                    </p>
+                    <div>
+                        <input type="submit" value="Save" onclick=updateUsername() />
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{else}}
+        <div class="col-lg-12" style="padding-bottom: 20px;">
+            <div class="card">
+            <h4 class="card-header">User: {{username}}</h4>
+            <div class="card-body">
+                <code>finger {{username}}@{{config.baseFingerHost}}</code><br/>
+                CORS / JSON endpoint: <a href="/api/{{username}}" title="{{username}} api endpoint">{{config.baseUrl}}/api/{{username}}</a>
+                <br/><br/>
+
+                <p class="card-text">
+                    Display name: 
+                    <textarea style="width:100%; height: 40px" class="computext" id="displayname">{{displayname}}</textarea>
+                </p>
+                <p class="card-text">
+                    .project: 
+                    <textarea style="width:100%; height: 100px" class="computext" id="project">{{project}}</textarea>
+                </p>
+                <p class="card-text">
+                    .plan:
+                    <textarea style="width:100%; height: 400px" class="computext" id="plan" >{{plan}}</textarea>
+                </p>
+                <div>
+                    <input type="submit" value="Update" onclick=updateProfile() />
+                </div>
+            </div>
+            </div>
+        </div>
+    
+        <div class="col-lg-12" style="padding-bottom: 20px;">
+            <div class="card">
+                <h4 class="card-header">API</h4>
+                <div class="card-body">
+                    <p class="card-text">
+                        Token:<br/><input type="text" id="token" style="width:100%" value="{{token}}"/>
+                    </p>
+                    <div>
+                        <input type="submit" value="Regenerate" onclick=regenerateToken() />
+                    </div>
+                    <br/><br/>
+                    <h5>Example usage</h5>
+                    <p class="card-text">
+                        Update project:<br/>
+                        <code>
+                            curl {{config.baseUrl}}/api/{{username}}/project -X PUT -H "Content-Type: application/json" -d '{"token":"{{token}}","data":"My new project"}'
+                        </code>
+                    </p>
+                    <p class="card-text">
+                        Update plan:<br/>
+                        <code>
+                            curl {{config.baseUrl}}/api/{{username}}/plan -X PUT -H "Content-Type: application/json" -d '{"token":"{{token}}","data":"My new plan"}'
+                        </code>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12" style="padding-bottom: 20px;">
+            <div class="card">
+                <h4 class="card-header">Change Username</h4>
+                <div class="card-body">
+                    <form onsubmit="updateUsername(); return false">
+                        Username: <input type="text" id="newUsername" value="{{username}}"/>
+                    </form>
+                    <p class="card-text">
+                        <ul>
+                            <li>Cannot be blank</li>
+                            <li>Only alphanumeric characters / underscores</li>
+                            <li>Max 256 characters</li>
+                        </ul>
+                    </p>
+                    <div>
+                        <input type="submit" value="Save" onclick=updateUsername() />
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/unless}}
+</div>
+
+<script>
+    const putData = (url, data = {}) => {
+        return fetch(url, {
+            method: 'PUT', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify(data)
+            })
+    }
+
+    const updateUsername = () => {
+        putData('/profile/username', {username: document.getElementById('newUsername').value})
+            .then(response => response.json())
+            .then((data) => {
+                console.log('data', data);
+                if (data.error) {
+                    return alert(data.message);
+                }
+                window.location.assign('/profile');
+            });
+            
+        return false;
+    }
+
+     const updateProfile = () => {
+        putData('/profile', {
+            displayname: document.getElementById('displayname').value,
+            plan: document.getElementById('plan').value,
+            project: document.getElementById('project').value
+        })
+            .then(response => response.json())
+            .then((data) => {
+                console.log('data', data);
+                if (data.error) {
+                    return alert(data.message);
+                }
+                window.location.assign('/profile');
+            });
+            
+        return false;
+    }
+
+    const regenerateToken = () => {
+        putData('/profile/token', {})
+            .then(response => response.json())
+            .then((data) => {
+                console.log('data', data);
+                if (data.error) {
+                    return alert(data.message);
+                }
+                window.location.assign('/profile');
+            });
+            
+        return false;
+    }
+</script>
