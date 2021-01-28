@@ -22,12 +22,23 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VDDVKZW5HR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{config.ga.id}}');
+</script>
+<script src="https://kit.fontawesome.com/e07e238bcf.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="h-100">
       <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
 
   <!-- Navigation -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -48,14 +59,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/logout" title="Logout">Logout</a>
             </li>
-           {{else}}
-            <li class="nav-item">
-                <a class="nav-link" href="/auth/github" title="Login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/auth/github" title="Signup">Signup</a>
-            </li>
-            {{/if}}
+          {{/if}}
         </ul>
       </div>
     </div>
@@ -68,7 +72,10 @@
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; 2021 <a href="https://jonroig.com" title="Jon Roig dot com">Jon Roig</a> 
       <br/> 
-      Sponsor: <a href="https://xn--i-7iq.ws/" title="i❤️.ws emoji domains">i❤️.ws emoji domains</a></p>
+      Sponsor: <a href="https://xn--i-7iq.ws/" title="i❤️.ws emoji domains">i❤️.ws emoji domains</a><br/>
+      Straight outta Scottsdale, Arizona
+      
+      </p>
     </div>
     <!-- /.container -->
   </footer>
@@ -76,5 +83,7 @@
 
 
 </body>
+
+
 
 </html>
