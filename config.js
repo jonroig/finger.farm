@@ -4,11 +4,18 @@ const fs = require('fs');
 exports.config = {
     baseUrl: 'https://finger.farm',
     baseFingerHost: 'finger.farm',
+
+    // oauth stuff
     passport: {
         github: {
-            clientID: 'XXXX',
-            clientSecret: 'YYYY',
+            clientID: 'CHANGE_ME',
+            clientSecret: 'CHANGE_ME',
             callbackURL: 'https://finger.farm/auth/github/callback'
+        },
+        twitter: {
+            apiKey: 'CHANGE_ME',
+            apiSecret: 'CHANGE_ME',
+            callbackURL: 'https://finger.farm/auth/twitter/callback'
         }
     },
     
@@ -39,5 +46,10 @@ exports.config = {
             name: 'The Finger',
             plan: fs.readFileSync('./views/finger/finger.txt', 'utf8')
         }
+    },
+
+    // google analytics
+    ga: {
+        id: 'XXXX'
     }
 };
