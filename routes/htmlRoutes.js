@@ -4,6 +4,7 @@ const router = express.Router();
 
 const connection = require('../connection');
 const passportGithub = require('../auth/github');
+const passportTwitter = require('../auth/twitter');
 const config = require('../config').config;
 const { nanoid } =  require('nanoid');
 
@@ -20,12 +21,14 @@ function checkAuthentication(req, res, next) {
         return next();
     }
 
-    return res.redirect('/login');
+    return res.redirect('/');
 }
 
 // Basic route
 router.get('/', checkAuthentication, function (req, res) {
-    res.render('home');
+    res.render('home', {
+        config
+    });
 });
 
 
@@ -33,6 +36,16 @@ router.get('/', checkAuthentication, function (req, res) {
 router.get('/auth/github', passportGithub.authenticate('github', { scope: [ '' ] }));
 router.get('/auth/github/callback',
   passportGithub.authenticate('github', { failureRedirect: '/' }),
+    function(req, res) {
+        // Successful authentication
+        return res.redirect('/profile');
+    }
+);
+
+// twitter auth stuff
+router.get('/auth/twitter', passportTwitter.authenticate('twitter', { scope: [ '' ] }));
+router.get('/auth/twitter/callback',
+passportTwitter.authenticate('twitter', { failureRedirect: '/' }),
     function(req, res) {
         // Successful authentication
         return res.redirect('/profile');
