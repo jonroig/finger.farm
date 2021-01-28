@@ -16,7 +16,7 @@ Although it's fallen out of fashion, finger still works and still has a valid pu
 * Profit
 
 ## Features
-* Node.js
+* Node.js implementation a Finger server
 * CORS / REST API endpoints
 * UPDATE via CURL
 * SQLite Backend
