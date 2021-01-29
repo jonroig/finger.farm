@@ -1,8 +1,11 @@
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const router = express.Router();
 
+const config = require('../config').config;
 const connection = require('../connection');
+const fingerWelcome = fs.readFileSync('./views/finger/welcome.txt', 'utf8');
 
 
 // api get endpoint for JSON... the rough equivalent of running finger somebody@finger.farm
@@ -32,6 +35,40 @@ router.get('/api/:username', cors(), (req, res) => {
         delete user.ext_id;
         delete user.authsource;
         return res.status(200).json(user);
+    });
+});
+
+router.get('/api/:username/html', cors(), (req, res) => {
+    const username = req.params.username || '';
+    const cleanUsername = username.toLowerCase().trim();
+    connection.all('SELECT * FROM users WHERE username = ?', [cleanUsername], (error, data) => {
+        if (error) {
+            return res.status(500).json({
+                message: 'Internal Error',
+                statusCode: 500
+            });
+        }
+
+        if (data.length === 0) {
+            return res.status(404).json({
+                message: 'Not found',
+                statusCode: 404
+            });
+        }
+
+        const user = data[0];
+        delete user.id;
+        delete user.passwordcrypt;
+        delete user.token;
+        delete user.ext_id;
+        delete user.authsource;
+        
+        return res.render('html', {
+            ...user,
+            fingerWelcome,
+            config,
+            layout: false
+        });
     });
 });
 
