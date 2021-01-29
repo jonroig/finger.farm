@@ -62,7 +62,7 @@
                 finger functions into the future.
             </p>
             <p class="card-text">
-                Reach out and touch someone... Finger.Farm is free, only takes a second, and we'll never bother you about anything.
+                Reach out and touch someone... Finger.Farm accounts are free, only take a second to create, and we'll never bother you about anything.
               </p>
               <div style="text-align: center">
                 <a href="/auth/github" title="Sign in with GitHub" class="btn">
@@ -72,6 +72,22 @@
                   <i class="fa fa-twitter"></i> Sign in with Twitter
                 </a>
               </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12" style="padding-bottom: 20px;">
+        <div class="card">
+          <h4 class="card-header">Recent Updates</h4>
+          <div class="card-body">
+            <p class="card-text">
+                [warning: content may be dubious]
+                <ul>
+                  {{#each users}}
+                    <li><a href="/api/{{username}}/html" title="finger {{username}}@finger.farm">{{username}}</a> - {{lastupdate}} </li>
+                  {{/each}}
+                </ul>
+
+            </p>
           </div>
         </div>
       </div>
@@ -91,6 +107,7 @@
           </div>
         </div>
       </div>
+
     </div>
     <!-- /.row -->
 
