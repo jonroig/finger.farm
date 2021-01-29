@@ -6,6 +6,15 @@
     font-family: courier new;
 }
 
+.htmltext {
+    background-color: #000 !important;
+    color: #00ff00;
+    padding: 20px;
+    font-family: courier new;
+}
+
+
+
 .twitter-blue {
     color: #1da1f2;
 }
