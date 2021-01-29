@@ -26,9 +26,18 @@ function checkAuthentication(req, res, next) {
 
 // Basic route
 router.get('/', checkAuthentication, function (req, res) {
-    res.render('home', {
-        config
+    return connection.all(`
+        SELECT username, lastupdate 
+        FROM users WHERE plan <> '' 
+        AND plan IS NOT NULL 
+        ORDER BY lastupdate DESC 
+        LIMIT 10`, [], (error, users) => {
+        res.render('home', {
+            users,
+            config
+        });
     });
+    
 });
 
 
