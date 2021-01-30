@@ -1,4 +1,4 @@
-# Finger.Farm Advanced Finger Hosting
+# Finger.Farm Modern Finger Hosting
 https://finger.farm
 
 Your Dad fingered your Mom in the 90s.
