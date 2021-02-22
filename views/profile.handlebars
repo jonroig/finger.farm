@@ -82,6 +82,33 @@
                             curl {{config.baseUrl}}/api/{{username}}/plan -X PUT -H "Content-Type: application/json" -d '{"token":"{{token}}","data":"My new plan"}'
                         </code>
                     </p>
+                    <p>
+                        From Javascript:<br/>
+                        <textarea style="width:100%; height: 600px" class="computext">
+                        
+const theData = {
+  "token": "{{token}}",
+  "data": "The is my project"
+};
+
+putRequest('{{config.baseUrl}}/api/{{username}}/project', theData)
+  .then(data => console.log(data)) 
+  .catch(error => console.error(error))
+
+function putRequest(url, data) {
+  return fetch(url, {
+      credentials: 'same-origin',
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+    })
+    .then(response => response.json())
+}
+</textarea>
+
+                    </p>
                 </div>
             </div>
         </div>
