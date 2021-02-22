@@ -84,7 +84,17 @@ router.put('/api/:username/project', cors(), (req, res) => {
         }
 
         connection.run(`UPDATE users SET project = ?, lastupdate=datetime('now') WHERE username = ? AND token = ?`, [req.body.data, cleanUsername, req.body.token], (error, users) => {
-            return res.status(200).json( {status: 200, message: 'ok'} );
+           
+            connection.all('SELECT * FROM users WHERE username = ?', [cleanUsername], (error, data) => {
+                const user = data[0];
+                delete user.id;
+                delete user.passwordcrypt;
+                delete user.token;
+                delete user.ext_id;
+                delete user.authsource;
+                
+                return res.status(200).json( {status: 200, user} );
+            });
         }); 
     });
 });
@@ -101,7 +111,16 @@ router.put('/api/:username/plan', cors(), (req, res) => {
         }
 
         connection.run(`UPDATE users SET plan = ?, lastupdate=datetime('now') WHERE username = ? AND token = ?`, [req.body.data, cleanUsername, req.body.token], (error, users) => {
-            return res.status(200).json( {status: 200, message: 'ok'} );
+            connection.all('SELECT * FROM users WHERE username = ?', [cleanUsername], (error, data) => {
+                const user = data[0];
+                delete user.id;
+                delete user.passwordcrypt;
+                delete user.token;
+                delete user.ext_id;
+                delete user.authsource;
+                
+                return res.status(200).json( {status: 200, user} );
+            });
         }); 
     });
 });
