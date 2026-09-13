@@ -1,32 +1,62 @@
-
+require('dotenv').config();
 const fs = require('fs');
 
-exports.config = {
-    baseUrl: 'https://finger.farm',
-    baseFingerHost: 'finger.farm',
+const baseUrl = process.env.BASE_URL || 'https://finger.farm';
 
-    // oauth stuff
-    passport: {
+exports.config = {
+    baseUrl: baseUrl,
+    baseFingerHost: process.env.BASE_FINGER_HOST || 'finger.farm',
+
+    // Dynamic Passport Strategies
+    passportStrategies: {
         github: {
-            clientID: 'CHANGE_ME',
-            clientSecret: 'CHANGE_ME',
-            callbackURL: 'https://finger.farm/auth/github/callback'
+            enabled: !!process.env.GITHUB_CLIENT_ID,
+            Strategy: require('passport-github2').Strategy,
+            config: {
+                clientID: process.env.GITHUB_CLIENT_ID,
+                clientSecret: process.env.GITHUB_CLIENT_SECRET,
+                callbackURL: `${baseUrl}/auth/github/callback`
+            },
+            name: 'GitHub',
+            icon: 'fa-github',
+            btnClass: 'btn-dark'
         },
-        twitter: {
-            apiKey: 'CHANGE_ME',
-            apiSecret: 'CHANGE_ME',
-            callbackURL: 'https://finger.farm/auth/twitter/callback'
+        google: {
+            enabled: !!process.env.GOOGLE_CLIENT_ID,
+            Strategy: require('passport-google-oauth20').Strategy,
+            config: {
+                clientID: process.env.GOOGLE_CLIENT_ID,
+                clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+                callbackURL: `${baseUrl}/auth/google/callback`,
+                scope: ['profile', 'email']
+            },
+            name: 'Google',
+            icon: 'fa-google',
+            btnClass: 'btn-danger'
+        },
+        discord: {
+            enabled: !!process.env.DISCORD_CLIENT_ID,
+            Strategy: require('passport-discord').Strategy,
+            config: {
+                clientID: process.env.DISCORD_CLIENT_ID,
+                clientSecret: process.env.DISCORD_CLIENT_SECRET,
+                callbackURL: `${baseUrl}/auth/discord/callback`,
+                scope: ['identify']
+            },
+            name: 'Discord',
+            icon: 'fa-discord', // You might need a specific discord font-awesome icon if it exists, otherwise a generic icon or custom CSS
+            btnClass: 'btn-primary'
         }
     },
     
     // finger config
     fingerServer: {
-        port: 7979,
+        port: process.env.FINGER_PORT || 7979,
     },
 
     // web config
     webServer: {
-        httpPort: 3000,
+        httpPort: process.env.PORT || 3000,
     },
 
     defaultUsers: {
@@ -50,6 +80,6 @@ exports.config = {
 
     // google analytics
     ga: {
-        id: 'XXXX'
+        id: process.env.GA_ID || 'XXXX'
     }
 };

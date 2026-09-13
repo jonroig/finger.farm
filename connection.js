@@ -1,4 +1,21 @@
-const sqlite3 = require('sqlite3');
-const connection = new sqlite3.Database('./db/fingerfarm.sqlite3');
+require('dotenv').config();
+let db;
 
-module.exports = connection;
+// Basic DB factory pattern
+if (process.env.DB_TYPE === 'firebase') {
+    db = require('./lib/db/firebaseAdapter');
+} else if (process.env.DB_TYPE === 'postgres') {
+    db = require('./lib/db/postgresAdapter');
+} else if (process.env.DB_TYPE === 'mysql') {
+    db = require('./lib/db/mysqlAdapter');
+} else if (process.env.DB_TYPE === 'mongo') {
+    db = require('./lib/db/mongoAdapter');
+} else if (process.env.DB_TYPE === 'supabase') {
+    db = require('./lib/db/supabaseAdapter');
+} else if (process.env.DB_TYPE === 'redis') {
+    db = require('./lib/db/redisAdapter');
+} else {
+    db = require('./lib/db/sqliteAdapter');
+}
+
+module.exports = db;
