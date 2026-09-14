@@ -164,18 +164,6 @@ module.exports = {
         icon: 'fa-dropbox',
         btnClass: 'btn-primary'
     },
-    digitalocean: {
-        enabled: !!process.env.DIGITALOCEAN_CLIENT_ID,
-        Strategy: require('passport-digitalocean').Strategy,
-        config: {
-            clientID: process.env.DIGITALOCEAN_CLIENT_ID,
-            clientSecret: process.env.DIGITALOCEAN_CLIENT_SECRET,
-            callbackURL: `${baseUrl}/auth/digitalocean/callback`
-        },
-        name: 'DigitalOcean',
-        icon: 'fa-server',
-        btnClass: 'btn-primary'
-    },
     reddit: {
         enabled: !!process.env.REDDIT_CLIENT_ID,
         Strategy: require('passport-reddit').Strategy,

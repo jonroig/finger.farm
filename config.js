@@ -1,12 +1,15 @@
 require('dotenv').config();
 
-const baseUrl = process.env.BASE_URL || 'https://finger.farm';
 
 exports.config = {
-    baseUrl: baseUrl,
+    // base config
+    baseUrl: process.env.BASE_URL || 'https://finger.farm';,
     baseFingerHost: process.env.BASE_FINGER_HOST || 'finger.farm',
-    allowRegistration: process.env.ALLOW_REGISTRATION !== 'false',
-    
+
+    // site configuration
+    allowRegistration: process.env.ALLOW_REGISTRATION === undefined ? true : process.env.ALLOW_REGISTRATION === 'true',
+    showPublicUsers: process.env.SHOW_PUBLIC_USERS === 'true',
+
     // finger config
     fingerServer: {
         port: process.env.FINGER_PORT || 7979,

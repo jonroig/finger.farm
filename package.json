@@ -1,6 +1,6 @@
 {
   "name": "fingerfarm",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Finger hosting done right",
   "main": "index.js",
   "engines": {
@@ -40,7 +40,6 @@
     "passport-bitbucket-oauth2": "^0.1.2",
     "passport-amazon": "^1.0.0",
     "passport-dropbox-oauth2": "^1.0.6",
-    "passport-digitalocean": "^1.1.2",
     "passport-reddit": "^0.2.4",
     "pm2": "^4.5.1",
     "better-sqlite3": "^11.3.0",
