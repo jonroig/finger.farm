@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { config } = require('../config');
+const strategies = require('../auth/strategies');
 
 // Setup dynamic routes for enabled providers
-Object.keys(config.passportStrategies).forEach(providerName => {
-    const provider = config.passportStrategies[providerName];
+Object.keys(strategies).forEach(providerName => {
+    const provider = strategies[providerName];
     if (provider.enabled) {
         const scope = provider.config.scope || [];
         router.get(`/auth/${providerName}`, passport.authenticate(providerName, { scope }));

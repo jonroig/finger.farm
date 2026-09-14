@@ -4,6 +4,7 @@ const router = express.Router();
 
 const db = require('../connection');
 const config = require('../config').config;
+const strategies = require('../auth/strategies');
 const { nanoid } =  require('nanoid');
 
 function checkAuthentication(req, res, next) {
@@ -28,8 +29,8 @@ router.get('/', checkAuthentication, async function (req, res) {
         const users = await db.getRecentUsers(10);
         
         // Pass active providers to the frontend
-        const activeProviders = Object.keys(config.passportStrategies)
-            .map(key => ({ id: key, ...config.passportStrategies[key] }))
+        const activeProviders = Object.keys(strategies)
+            .map(key => ({ id: key, ...strategies[key] }))
             .filter(provider => provider.enabled);
 
         res.render('home', {

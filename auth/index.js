@@ -1,11 +1,12 @@
 const passport = require('passport');
 const { config } = require('../config');
 const db = require('../connection');
+const strategies = require('./strategies');
 const { nanoid } = require('nanoid');
 require('./init')();
 
-Object.keys(config.passportStrategies).forEach(providerName => {
-    const provider = config.passportStrategies[providerName];
+Object.keys(strategies).forEach(providerName => {
+    const provider = strategies[providerName];
     if (provider.enabled) {
         passport.use(new provider.Strategy(provider.config, async (accessToken, refreshToken, profile, done) => {
             try {
@@ -13,6 +14,10 @@ Object.keys(config.passportStrategies).forEach(providerName => {
                 
                 if (user) {
                     return done(null, user);
+                }
+
+                if (!config.allowRegistration) {
+                    return done(null, false, { message: 'Registration is currently disabled.' });
                 }
 
                 // create the new user

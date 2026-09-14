@@ -5,6 +5,7 @@ const router = express.Router();
 
 const config = require('../config').config;
 const db = require('../connection');
+const botManager = require('../lib/botManager');
 const fingerWelcome = fs.readFileSync('./views/finger/welcome.txt', 'utf8');
 
 
@@ -14,7 +15,15 @@ router.get('/api/:username', cors(), async (req, res) => {
     try {
         const username = req.params.username || '';
         const cleanUsername = username.toLowerCase().trim();
-        const user = await db.getUserByUsername(cleanUsername);
+        
+        let user;
+        const bot = botManager.getBot(cleanUsername);
+        if (bot) {
+            const context = { username: cleanUsername, ip: req.ip, config, db };
+            user = await botManager.handle(bot, context);
+        } else {
+            user = await db.getUserByUsername(cleanUsername);
+        }
         
         if (!user) {
             return res.status(404).json({
@@ -41,7 +50,15 @@ router.get('/api/:username/html', cors(), async (req, res) => {
     try {
         const username = req.params.username || '';
         const cleanUsername = username.toLowerCase().trim();
-        const user = await db.getUserByUsername(cleanUsername);
+        
+        let user;
+        const bot = botManager.getBot(cleanUsername);
+        if (bot) {
+            const context = { username: cleanUsername, ip: req.ip, config, db };
+            user = await botManager.handle(bot, context);
+        } else {
+            user = await db.getUserByUsername(cleanUsername);
+        }
         
         if (!user) {
             return res.status(404).json({

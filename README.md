@@ -8,17 +8,27 @@ Once upon a time, you could finger your boss, finger a vending machine, finger t
 Although it's fallen out of fashion, finger still works and still has a valid purpose. Finger.Farm breathes new life into an ancient protocol, bringing the advanced finger features and finger functions into the future.
 
 ## Usage
+**From the internet:**
 * Open your Mac / Windows / Linux terminal
-* Type:
-`finger jroig@finger.farm`
+* Type: `finger jroig@finger.farm`
 * Profit
+
+**Local CLI Testing:**
+Finger.Farm includes a built-in CLI tool to quickly test your local database and bot configurations without booting the entire server:
+```bash
+# Query a specific user or bot
+node fingerfarm.js quotes@finger.farm
+
+# View the directory of public users
+node fingerfarm.js ""
+```
 
 ## Features
 * Node.js implementation of a Finger server
 * CORS / REST API endpoints
 * UPDATE via API
 * Pluggable Database Backend (Default: SQLite)
-* Dynamic Authentication via Passport (GitHub, Google, Discord)
+* Dynamic Authentication via [Passport.js](https://www.passportjs.org/) (GitHub, Google, Discord)
 
 ## Configuration
 Finger.Farm uses `dotenv` for configuration. Copy `.env.example` to `.env` and fill in your values. 
@@ -27,11 +37,37 @@ Finger.Farm uses `dotenv` for configuration. Copy `.env.example` to `.env` and f
 cp .env.example .env
 ```
 
+### Bot Plugins
+Finger.Farm supports a folder-based plugin system for bots! You can write simple Javascript modules to dynamically respond to finger requests and HTTP JSON requests.
+
+To add a bot:
+1. Create a new folder inside `bots/` named after your bot (e.g. `bots/echo/`).
+2. Create an `index.js` file inside that folder.
+3. Export a standard interface with a `name` and an async `handleRequest` function that returns a JSON object.
+4. Restart the server.
+
+Example `bots/echo/index.js`:
+```javascript
+module.exports = {
+    name: 'echo',
+    handleRequest: async (context) => {
+        // context contains { username, ip, db, config }
+        return {
+            username: 'echo',
+            displayname: 'Echo Bot',
+            lastupdate: new Date().toISOString(),
+            plan: `Hello! You fingered "${context.username}" from ${context.ip}\r\n`
+        };
+    }
+}
+```
+Now, anyone running `finger echo@finger.farm` will receive your dynamic response!
+
 ### Authentication Providers
-Authentication is completely dynamic! Out of the box, `finger.farm` supports GitHub, Google, and Discord. The app reads your `.env` file and automatically enables login for any provider that has API credentials configured.
+Authentication is completely dynamic, powered by [Passport.js](https://www.passportjs.org/)! Out of the box, `finger.farm` supports GitHub, Google, and Discord. The app reads your `.env` file and automatically enables login for any provider that has API credentials configured.
 
 **To add a new provider (e.g. Facebook):**
-1. Run `npm install passport-facebook`.
+1. Run `npm install passport-facebook` (see [Passport.js strategies](https://www.passportjs.org/packages/) for more).
 2. Add your Facebook credentials to `.env`.
 3. Open `config.js` and add `facebook` to the `passportStrategies` object, defining the `Strategy`, `config`, `icon`, and `name`. 
 That's it! The backend will automatically generate the routes and the frontend will automatically render the login button.

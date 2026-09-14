@@ -1,0 +1,12 @@
+
+ _______ _____ __   _  ______ _______  ______             _______ _______  ______ _______
+ |______   |   | \  | |  ____ |______ |_____/             |______ |_____| |_____/ |  |  |
+ |       __|__ |  \_| |_____| |______ |    \_      .      |       |     | |    \_ |  |  |
+                                                                                         
+... the most advanced solution in finger hosting.
+
+Web:
+---> https://finger.farm
+
+Public user directory:
+---> finger @finger.farm
