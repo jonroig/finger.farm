@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 require('dotenv').config();
+process.env.CLI_MODE = 'true';
 const core = require('./lib/core');
 
 async function main() {

@@ -3,7 +3,7 @@ require('dotenv').config();
 
 exports.config = {
     // base config
-    baseUrl: process.env.BASE_URL || 'https://finger.farm';,
+    baseUrl: process.env.BASE_URL || 'https://finger.farm',
     baseFingerHost: process.env.BASE_FINGER_HOST || 'finger.farm',
 
     // site configuration
