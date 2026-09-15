@@ -1,0 +1,5 @@
+node_modules/
+.env
+db/fingerfarm.sqlite3
+*.log
+.DS_Store

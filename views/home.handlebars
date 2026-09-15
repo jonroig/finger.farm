@@ -60,12 +60,14 @@
                 Reach out and touch someone... Finger.Farm accounts are free, only take a second to create, and we'll never bother you about anything.
               </p>
               <div style="text-align: center">
-                <a href="/auth/github" title="Sign in with GitHub" class="btn">
-                  <i class="fa fa-github"></i> Sign in with GitHub
-                </a>
-                <a href="/auth/twitter" title="Sign in with Twitter" class="btn twitter-blue">
-                  <i class="fa fa-twitter"></i> Sign in with Twitter
-                </a>
+                {{#each activeProviders}}
+                  <a href="/auth/{{this.id}}" title="Sign in with {{this.name}}" class="btn {{this.btnClass}}">
+                    <i class="fa {{this.icon}}"></i> Sign in with {{this.name}}
+                  </a>
+                {{/each}}
+                {{^activeProviders}}
+                  <p><em>No authentication providers are currently configured.</em></p>
+                {{/activeProviders}}
               </div>
           </div>
         </div>
@@ -138,14 +140,16 @@
     <p>
       Status is important... and what better way to convey your current status than finger? 
 
-      <div style="text-align: center">
-        <a href="/auth/github" title="Sign in with GitHub" class="btn">
-          <i class="fa fa-github"></i> Sign in with GitHub
-        </a>
-        <a href="/auth/twitter" title="Sign in with Twitter" class="btn twitter-blue">
-          <i class="fa fa-twitter"></i> Sign in with Twitter
-        </a>
-      </div>
+              <div style="text-align: center">
+                {{#each activeProviders}}
+                  <a href="/auth/{{this.id}}" title="Sign in with {{this.name}}" class="btn {{this.btnClass}}">
+                    <i class="fa {{this.icon}}"></i> Sign in with {{this.name}}
+                  </a>
+                {{/each}}
+                {{^activeProviders}}
+                  <p><em>No authentication providers are currently configured.</em></p>
+                {{/activeProviders}}
+              </div>
     </p>
       </div>
     
