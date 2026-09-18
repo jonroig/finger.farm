@@ -20,15 +20,27 @@ Although it's fallen out of fashion, finger still works and still has a valid pu
 * Dynamic Authentication via [Passport.js](https://www.passportjs.org/)
 * Bot support / plugins
 
-## Startup
+## Startup & Deployment
+
+**Local Development:**
 ```bash
 npm install
+cp .env.example .env
 node index.js
 ```
 
-... or, even better: `pm2 start index.js` (if you're into that kinda thing)
+**Production Deployment (VPS):**
+When deploying to a VPS (like DigitalOcean, GoDaddy, or Linode), you should use PM2 to run the application as a background daemon. We have included an `ecosystem.config.js` file specifically for this:
 
-You will almost certainly want to run this behind a reverse proxy like HAProxy or Nginx.
+```bash
+# Start the app in the background with production settings
+pm2 start ecosystem.config.js --env production
+
+# Save the process list so it automatically starts on server reboot
+pm2 save
+```
+
+*Note: You will almost certainly want to run this behind a reverse proxy like Nginx or HAProxy. You will also need to use `iptables` to route the privileged Finger port (79) to the Node app (7979).*
 
 ## Local CLI Testing
 Finger.Farm includes a built-in CLI tool to quickly test your local database and bot configurations without booting the entire server:
