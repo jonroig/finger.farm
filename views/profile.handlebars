@@ -91,20 +91,27 @@ const theData = {
   "data": "The is my project"
 };
 
-putRequest('{{config.baseUrl}}/api/{{username}}/project', theData)
-  .then(data => console.log(data)) 
-  .catch(error => console.error(error))
+async function updateMyProject() {
+  try {
+    const data = await putRequest('{{config.baseUrl}}/api/{{username}}/project', theData);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-function putRequest(url, data) {
-  return fetch(url, {
+updateMyProject();
+
+async function putRequest(url, data) {
+  const response = await fetch(url, {
       credentials: 'same-origin',
       method: 'PUT',
       body: JSON.stringify(data),
       headers: new Headers({
         'Content-Type': 'application/json'
       }),
-    })
-    .then(response => response.json())
+    });
+  return response.json();
 }
 </textarea>
 
@@ -149,49 +156,52 @@ function putRequest(url, data) {
             })
     }
 
-    const updateUsername = () => {
-        putData('/profile/username', {username: document.getElementById('newUsername').value})
-            .then(response => response.json())
-            .then((data) => {
-                console.log('data', data);
-                if (data.error) {
-                    return alert(data.message);
-                }
-                window.location.assign('/profile');
-            });
-            
+    const updateUsername = async () => {
+        try {
+            const response = await putData('/profile/username', {username: document.getElementById('newUsername').value});
+            const data = await response.json();
+            console.log('data', data);
+            if (data.error) {
+                return alert(data.message);
+            }
+            window.location.assign('/profile');
+        } catch (error) {
+            console.error(error);
+        }
         return false;
     }
 
-     const updateProfile = () => {
-        putData('/profile', {
-            displayname: document.getElementById('displayname').value,
-            plan: document.getElementById('plan').value,
-            project: document.getElementById('project').value
-        })
-            .then(response => response.json())
-            .then((data) => {
-                console.log('data', data);
-                if (data.error) {
-                    return alert(data.message);
-                }
-                window.location.assign('/profile');
+     const updateProfile = async () => {
+        try {
+            const response = await putData('/profile', {
+                displayname: document.getElementById('displayname').value,
+                plan: document.getElementById('plan').value,
+                project: document.getElementById('project').value
             });
-            
+            const data = await response.json();
+            console.log('data', data);
+            if (data.error) {
+                return alert(data.message);
+            }
+            window.location.assign('/profile');
+        } catch (error) {
+            console.error(error);
+        }
         return false;
     }
 
-    const regenerateToken = () => {
-        putData('/profile/token', {})
-            .then(response => response.json())
-            .then((data) => {
-                console.log('data', data);
-                if (data.error) {
-                    return alert(data.message);
-                }
-                window.location.assign('/profile');
-            });
-            
+    const regenerateToken = async () => {
+        try {
+            const response = await putData('/profile/token', {});
+            const data = await response.json();
+            console.log('data', data);
+            if (data.error) {
+                return alert(data.message);
+            }
+            window.location.assign('/profile');
+        } catch (error) {
+            console.error(error);
+        }
         return false;
     }
 </script>
