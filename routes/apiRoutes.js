@@ -87,9 +87,21 @@ router.get('/api/:username/html', cors(), async (req, res) => {
     }
 });
 
+// Reject cross-site browser requests forged with the victim's cookies while still
+// allowing non-browser API clients (e.g. curl), which do not send an Origin header.
+function isTrustedOrigin(req) {
+    const origin = req.get('origin') || req.get('referer');
+    if (!origin) return true;
+    return origin.toLowerCase().startsWith(config.baseUrl.toLowerCase());
+}
+
 router.options('/api/:username/project', cors());
 router.put('/api/:username/project', cors(), async (req, res) => {
     try {
+        if (!isTrustedOrigin(req)) {
+            return res.status(403).json({ status: 403, message: 'Invalid origin' });
+        }
+
         const username = req.params.username || '';
         const cleanUsername = username.toLowerCase().trim();
 
@@ -117,6 +129,10 @@ router.put('/api/:username/project', cors(), async (req, res) => {
 router.options('/api/:username/plan', cors());
 router.put('/api/:username/plan', cors(), async (req, res) => {
     try {
+        if (!isTrustedOrigin(req)) {
+            return res.status(403).json({ status: 403, message: 'Invalid origin' });
+        }
+
         const username = req.params.username || '';
         const cleanUsername = username.toLowerCase().trim();
 
