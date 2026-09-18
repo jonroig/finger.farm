@@ -86,12 +86,13 @@ router.put('/profile/username', checkAuthentication, async (req, res) => {
         const cleanUsername = req.body.username.toLowerCase().trim();
         // valid chars only
 
-        if (config.defaultUsers[cleanUsername]) {
-            const message = `${cleanUsername} is a reserved username`;
+        const botManager = require('../lib/botManager');
+        if (botManager.getBot(cleanUsername)) {
+            const message = `${cleanUsername} is a reserved system bot`;
             return res.status(400).send({error: true,  message });
         }
 
-        if (cleanUsername.replace(/[\W_]+/g,"") !== cleanUsername) {
+        if (cleanUsername.replace(/\W+/g, "") !== cleanUsername) {
             const message = 'Username can only contain alphanumeric characters or underscores';
             return res.status(400).send({ error: true, message });
         }
