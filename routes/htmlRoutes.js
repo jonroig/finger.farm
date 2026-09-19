@@ -1,4 +1,5 @@
 const path = require('path');
+const crypto = require('crypto');
 const express = require('express');
 const router = express.Router();
 
@@ -21,6 +22,15 @@ function checkAuthentication(req, res, next) {
     }
 
     return res.redirect('/');
+}
+
+// require a valid per-session CSRF token on state-changing profile requests
+function checkCsrfToken(req, res, next) {
+    const submittedToken = req.body && req.body.csrfToken;
+    if (!req.session.csrfToken || submittedToken !== req.session.csrfToken) {
+        return res.status(403).send({ error: true, message: 'Invalid or missing CSRF token' });
+    }
+    return next();
 }
 
 // Basic route
@@ -66,12 +76,16 @@ router.get('/profile', checkAuthentication, async (req, res) => {
     try {
         const user = await db.getUserById(req.user.id);
         console.log({user});
+        if (!req.session.csrfToken) {
+            req.session.csrfToken = crypto.randomBytes(32).toString('hex');
+        }
         return res.render('profile', 
         {
             isLoggedIn: true,
             hasUsername: !!user.username,
             ...user,
             config,
+            csrfToken: req.session.csrfToken,
             pageTitle: user.username || 'Profile'
         });
     } catch (error) {
@@ -81,7 +95,7 @@ router.get('/profile', checkAuthentication, async (req, res) => {
 
 
 // username changes
-router.put('/profile/username', checkAuthentication, async (req, res) => {
+router.put('/profile/username', checkAuthentication, checkCsrfToken, async (req, res) => {
     try {
         const cleanUsername = req.body.username.toLowerCase().trim();
         // valid chars only
@@ -119,7 +133,7 @@ router.put('/profile/username', checkAuthentication, async (req, res) => {
 
 
 // regenerate token
-router.put('/profile/token', checkAuthentication, async (req, res) => {
+router.put('/profile/token', checkAuthentication, checkCsrfToken, async (req, res) => {
     try {
         await db.updateToken(req.user.id, nanoid(48));
         return res.status(200).send({ ok: true });
@@ -131,7 +145,7 @@ router.put('/profile/token', checkAuthentication, async (req, res) => {
 
 
 // general profile update
-router.put('/profile', checkAuthentication, async (req, res) => {
+router.put('/profile', checkAuthentication, checkCsrfToken, async (req, res) => {
     try {
         const displayname = req.body.displayname.trim();
         const plan = req.body.plan.trim();
