@@ -28,6 +28,7 @@ const quotes = [
 
 module.exports = {
     name: 'quotes',
+    displayname: 'Random Quote Bot',
     handleRequest: async (context) => {
         // We can access context variables if we want:
         // const { ip, config, db } = context;

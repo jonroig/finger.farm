@@ -5,6 +5,7 @@ const planText = fs.readFileSync(path.join(__dirname, 'about.txt'), 'utf8');
 
 module.exports = {
     name: 'about',
+    displayname: 'Abouty McAboutface',
     handleRequest: async (context) => {
         return {
             username: 'about',
