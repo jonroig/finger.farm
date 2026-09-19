@@ -28,7 +28,7 @@ module.exports = {
         // JSON/HTML for web API users!
         return {
             username: 'mybot',
-            displayname: 'My Awesome Bot',
+            displayname: 'My Bot',
             project: 'Optional project string',
             plan: 'Hello World! This is the main content.',
             lastupdate: new Date().toISOString()
