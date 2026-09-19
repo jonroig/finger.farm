@@ -1,5 +1,6 @@
 module.exports = {
     name: 'echo',
+    displayname: 'Echo Bot',
     handleRequest: async (context) => {
         // The echo bot demonstrates how to use the context object
         const { username, ip, config } = context;

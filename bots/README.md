@@ -18,6 +18,9 @@ module.exports = {
     // The username that triggers this bot (must be lowercase)
     name: 'mybot', 
     
+    // The human-readable name shown in the public directory
+    displayname: 'My Awesome Bot',
+    
     // The async function called when this bot is triggered
     handleRequest: async (context) => {
         // Return a standard JSON object. Finger.Farm will automatically 
@@ -25,7 +28,7 @@ module.exports = {
         // JSON/HTML for web API users!
         return {
             username: 'mybot',
-            displayname: 'My Awesome Bot',
+            displayname: 'My Bot',
             project: 'Optional project string',
             plan: 'Hello World! This is the main content.',
             lastupdate: new Date().toISOString()
