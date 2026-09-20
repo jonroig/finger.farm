@@ -41,14 +41,14 @@ module.exports = {
 
 When `handleRequest(context)` is called, Finger.Farm injects a rich `context` object containing information about the request and the server environment.
 
-- `context.username`: (String) The username that was requested (always matches your bot's `name`).
-- `context.ip`: (String) The remote IP address of the user who executed the finger command.
-- `context.config`: (Object) The global configuration object for Finger.Farm (contains base URLs, ports, etc.).
-- `context.db`: (Object) The active Database Adapter instance. This allows your bot to make queries against the `users` table using standard methods like `await context.db.getUserCount()`.
+- `context.username`: (String) Requested username (always matches your bot's `name`).
+- `context.ip`: (String) Remote IP address of the user who executed the finger command.
+- `context.config`: (Object) Global configuration object for Finger.Farm (contains base URLs, ports, etc.).
+- `context.db`: (Object) Active Database Adapter instance. This allows your bot to make queries against the `users` table using standard methods like `await context.db.getUserCount()`.
 
 ## HTTP and TCP Support
 
-Because bots return structured JSON objects, they are completely unified with standard users! 
+Bots return structured JSON objects, they function just like standard users! 
 - If a user runs `finger mybot@finger.farm`, the server formats your JSON object into classic ASCII text.
 - If a user hits `https://finger.farm/api/mybot`, the server returns your JSON object natively!
 

@@ -19,6 +19,7 @@ Although it's fallen out of fashion, finger still works and still has a valid pu
 * Pluggable Database Backend (Default: SQLite)
 * Dynamic Authentication via [Passport.js](https://www.passportjs.org/)
 * Bot support / plugins
+* Cloud ready
 
 ## Startup & Deployment
 
@@ -29,8 +30,21 @@ cp .env.example .env
 node index.js
 ```
 
+## Configuration
+Finger.Farm runs without code modification.
+
+Finger.Farm uses env for configuration. Take a look at the `.env.example` file to see how to set everything up.
+
+You can copy `.env.example` to `.env` and fill in your values or configure your favorite node-running cloud thing to use those values as ENV vars. 
+
+It should just work.
+
+```bash
+cp .env.example .env
+```
+
 **Production Deployment (VPS):**
-When deploying to a VPS (like DigitalOcean, GoDaddy, or Linode), you should use PM2 to run the application as a background daemon. We have included an `ecosystem.config.js` file specifically for this:
+When deploying to a VPS, you should use PM2 to run the application as a background daemon. We have included an `ecosystem.config.js` file specifically for this:
 
 ```bash
 # Start the app in the background with production settings
@@ -52,31 +66,39 @@ node fingerfarm.js quotes@finger.farm
 node fingerfarm.js ""
 ```
 
-## Configuration
-Finger.Farm uses `dotenv` for configuration. Copy `.env.example` to `.env` and fill in your values. 
+### Bot Plugins
+Finger.Farm supports simple bots - they're just js modules that respond to finger requests. We've got some basic examples:
 
 ```bash
-cp .env.example .env
+finger about@finger.farm
+finger echo@finger.farm
+finger finger@finger.farm
+finger help@finger.farm
+finger info@finger.farm
+finger quotes@finger.farm
 ```
 
-### Bot Plugins
-Finger.Farm supports a folder-based plugin system for bots! You can write simple Javascript modules to dynamically respond to finger requests / HTTP JSON requests.
+[Bot interface / examples](bots/README.md)
 
-**[➡️ Bot interface specifications / examples](bots/README.md)**
+### oAuth Providers
+Authentication powered by [Passport.js](https://www.passportjs.org/). Supports most of the the most popular OAuth2 providers including GitHub, Google, Discord, Reddit, Slack. 
 
-### Authentication Providers
-Authentication is completely dynamic, powered by [Passport.js](https://www.passportjs.org/)! Out of the box, `finger.farm` comes pre-wired with support for **14 of the most popular OAuth2 providers** (including GitHub, Google, Discord, Reddit, Slack, and more). The app reads your `.env` file and automatically enables login / API auth for any provider that has API credentials configured. You can add your own as well.
+Add the appropriate API secrets and keys to your `.env` to enable an oAuth provider. Adding new oAuth providers is pretty straightforward should you require enterprise finger support.
 
-**[➡️ Supported authentication providers / instructions](auth/README.md)**
+[Authentication providers / instructions](auth/README.md)
 
 ### Database Adapters
-Finger.Farm is completely decoupled from any specific database using the **Repository Pattern**. It ships with support for **SQLite, PostgreSQL, MySQL, MongoDB, Supabase, Redis, and Firebase**. We welcome contributions of other database adapters.
+Finger.Farm ships with support for SQLite, PostgreSQL, MySQL, MongoDB, Supabase, Redis, and Firebase all configured via `.env`. It supports custom adapters - there's just a basic pattern to follow.
 
-To switch to a different database:
-1. Change `DB_TYPE` in your `.env` file (e.g. `DB_TYPE=postgres`).
-2. Fill in the corresponding connection string in your `.env` file.
-3. Restart the server!
+Switch to a different database:
+1. Change `DB_TYPE` in your `.env` file (e.g. `DB_TYPE=postgres`)
+2. Fill in the corresponding connection string in your `.env` file
+3. Restart the server
 
-**[➡️ Supported databases / custom adapters](lib/db/README.md)**
+[Supported databases / custom adapters](lib/db/README.md)
 
 
+## Fediverse / WebFinger Support
+Finger.Farm support all the fingers, including WebFinger (RFC-7033), the modern HTTP-based spiritual successor to the Finger protocol. WebFinger is the backbone of the Fediverse, handling profile discovery.
+
+If someone searches for `@jroig@finger.farm` on Mastodon, Mastodon will automatically hit `https://finger.farm/.well-known/webfinger?resource=acct:jroig@finger.farm` and parse your profile.
