@@ -12,6 +12,7 @@ Although it's fallen out of fashion, finger still works and still has a valid pu
 * Type: `finger jroig@finger.farm`
 * Profit
 
+
 ## Features
 * Node.js implementation of a Finger server
 * CORS / REST API endpoints
@@ -21,6 +22,7 @@ Although it's fallen out of fashion, finger still works and still has a valid pu
 * Bot support / plugins
 * Cloud ready
 
+
 ## Startup & Deployment
 
 **Local Development:**
@@ -29,6 +31,7 @@ npm install
 cp .env.example .env
 node index.js
 ```
+
 
 ## Configuration
 Finger.Farm runs without code modification.
@@ -56,6 +59,7 @@ pm2 save
 
 *Note: You will almost certainly want to run this behind a reverse proxy like Nginx or HAProxy. You will also need to use `iptables` to route the privileged Finger port (79) to the Node app (7979).*
 
+
 ## Local CLI Testing
 Finger.Farm includes a built-in CLI tool to quickly test your local database and bot configurations without booting the entire server:
 ```bash
@@ -65,6 +69,7 @@ node fingerfarm.js quotes@finger.farm
 # View the directory of public users
 node fingerfarm.js ""
 ```
+
 
 ### Bot Plugins
 Finger.Farm supports simple bots - they're just js modules that respond to finger requests. We've got some basic examples:
@@ -80,12 +85,14 @@ finger quotes@finger.farm
 
 [Bot interface / examples](bots/README.md)
 
+
 ### oAuth Providers
 Authentication powered by [Passport.js](https://www.passportjs.org/). Supports most of the the most popular OAuth2 providers including GitHub, Google, Discord, Reddit, Slack. 
 
 Add the appropriate API secrets and keys to your `.env` to enable an oAuth provider. Adding new oAuth providers is pretty straightforward should you require enterprise finger support.
 
 [Authentication providers / instructions](auth/README.md)
+
 
 ### Database Adapters
 Finger.Farm ships with support for SQLite, PostgreSQL, MySQL, MongoDB, Supabase, Redis, and Firebase all configured via `.env`. It supports custom adapters - there's just a basic pattern to follow.
@@ -98,7 +105,7 @@ Switch to a different database:
 [Supported databases / custom adapters](lib/db/README.md)
 
 
-## Fediverse / WebFinger Support
-Finger.Farm support all the fingers, including WebFinger (RFC-7033), the modern HTTP-based spiritual successor to the Finger protocol. WebFinger is the backbone of the Fediverse, handling profile discovery.
+## WebFinger Support
+Finger.Farm support all the fingers, including WebFinger (RFC-7033), the modern HTTP-based spiritual successor to the Finger protocol.
 
-If someone searches for `@jroig@finger.farm` on Mastodon, Mastodon will automatically hit `https://finger.farm/.well-known/webfinger?resource=acct:jroig@finger.farm` and parse your profile.
+WebFinger searches `@jroig@finger.farm` automatically hit `https://finger.farm/.well-known/webfinger?resource=acct:jroig@finger.farm` and return some data. 
