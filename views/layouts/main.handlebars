@@ -1,89 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
 
-<head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Finger.Farm is a modern implementation of the fingerd server for the Finger Protocol">
+    <meta name="author" content="">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <title>Finger.Farm - {{#unless pageTitle}}Advanced Finger Protocol Hosting{{else}}{{pageTitle}}{{/unless}}</title>
 
-  <title>Finger.Farm - {{#unless pageTitle}}Advanced Finger Hosting{{else}}{{pageTitle}}{{/unless}}</title>
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/modern-business.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="css/modern-business.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VDDVKZW5HR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VDDVKZW5HR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+      gtag('config', '{{config.ga.id}}');
+    </script>
+    <script src="https://kit.fontawesome.com/e07e238bcf.js" crossorigin="anonymous"></script>
+  </head>
 
-  gtag('config', '{{config.ga.id}}');
-</script>
-<script src="https://kit.fontawesome.com/e07e238bcf.js" crossorigin="anonymous"></script>
-</head>
+  <body class="h-100">
+        <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
 
-<body class="h-100">
-      <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
-
-  <!-- Navigation -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="/">Finger.Farm</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/status" title="Status">Status</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/jonroig/finger.farm" title="Finger.Farm GitHub repo">GitHub Repo</a>
-          </li>
-          {{#if isLoggedIn}}
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/">Finger.Farm</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/logout" title="Logout">Logout</a>
+              <a class="nav-link" href="/status" title="Status">Status</a>
             </li>
-          {{/if}}
-        </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/jonroig/finger.farm" title="Finger.Farm GitHub repo">GitHub Repo</a>
+            </li>
+            {{#if isLoggedIn}}
+              <li class="nav-item">
+                  <a class="nav-link" href="/logout" title="Logout">Logout</a>
+              </li>
+            {{/if}}
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
-  {{{body}}}
+    {{{body}}}
 
-  <!-- Footer -->
-  <footer class="py-2 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; 2021 <a href="https://jonroig.com" title="Jon Roig dot com">Jon Roig</a> 
-      <br/> 
-      Sponsor: <a href="https://xn--i-7iq.ws/" title="i❤️.ws emoji domains">i❤️.ws emoji domains</a><br/>
-      Straight outta Scottsdale, Arizona
-      
-      </p>
-    </div>
-    <!-- /.container -->
-  </footer>
-
-
-
-</body>
-
-
-
+    <!-- Footer -->
+    <footer class="py-2 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; 2021 <a href="https://jonroig.com" title="Jon Roig dot com">Jon Roig</a> 
+        <br/> 
+        Sponsor: <a href="https://repodify.app" title="repodify: make podcasts out of podcasts">repodify.app</a><br/>
+        Made with 🌵 in Scottsdale, Arizona
+        </p>
+      </div>
+      <!-- /.container -->
+    </footer>
+  </body>
 </html>

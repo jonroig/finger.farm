@@ -1,4 +1,4 @@
-# Finger.Farm Modern Finger Hosting
+# Finger.Farm Modern Finger Protocol Hosting
 https://finger.farm
 
 Originally conceived as a way to get a status report on someone or something, the Finger Protocol aka RFC-742, has been around since the late 70s. Even today, the capability to finger lies dormant in every major OS.
@@ -6,6 +6,8 @@ Originally conceived as a way to get a status report on someone or something, th
 Once upon a time, you could finger your boss, finger a vending machine, finger the weather, finger John Carmack, etc... Users would share .project and .plan files, showing their current project and plans. The original telepresence. The original Internet of Things. The original microblogging.
 
 Although it's fallen out of fashion, finger still works and still has a valid purpose. Finger.Farm breathes new life into an ancient protocol, bringing the advanced finger features and finger functions into the future.
+
+The finger CLI is still present on almost every major OS.
 
 ## Usage
 * Open your Mac / Windows / Linux terminal
