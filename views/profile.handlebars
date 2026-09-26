@@ -144,6 +144,8 @@ async function putRequest(url, data) {
 </div>
 
 <script>
+    const csrfToken = '{{csrfToken}}';
+
     const putData = (url, data = {}) => {
         return fetch(url, {
             method: 'PUT', 
@@ -152,7 +154,7 @@ async function putRequest(url, data) {
                 },
                 redirect: 'follow',
                 referrerPolicy: 'no-referrer',
-                body: JSON.stringify(data)
+                body: JSON.stringify({ ...data, csrfToken })
             })
     }
 
